@@ -2,6 +2,8 @@ import pandas as pd
 import plotly.graph_objs as go
 from dash import Dash, dcc, html, Input, Output, callback, no_update
 import matplotlib.pyplot as plt
+import os
+from dash import Dash, html
 
 # Load your dataframe
 data_path = 'embedding_dash.csv'
@@ -112,5 +114,14 @@ def display_click(clickData):
     return True, bbox, children
 
 
-if __name__ == "__main__":
-    app.run(debug=True, port=8060)
+
+app = Dash(__name__)
+server = app.server
+
+app.layout = html.Div([
+    html.H1("TumorDash works!")
+])
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 8050))
+    app.run_server(debug=False, host="0.0.0.0", port=port)
